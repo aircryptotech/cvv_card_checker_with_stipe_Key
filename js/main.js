@@ -186,21 +186,36 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- DEPOSIT PAGE (deposit.html) ---
         const depositForm = document.getElementById('deposit-form');
         if (depositForm) {
+            const addresses = JSON.parse(localStorage.getItem('walletAddresses')) || {};
+            const btcAddressEl = document.getElementById('btc-address');
+            const ethAddressEl = document.getElementById('eth-address');
+            const ltcAddressEl = document.getElementById('ltc-address');
+            const usdtAddressEl = document.getElementById('usdt-address');
+
+            if(btcAddressEl) btcAddressEl.textContent = addresses.btc || '...';
+            if(ethAddressEl) ethAddressEl.textContent = addresses.eth || '...';
+            if(ltcAddressEl) ltcAddressEl.textContent = addresses.ltc || '...';
+            if(usdtAddressEl) usdtAddressEl.textContent = addresses.usdt || '...';
+
             const depositMessageEl = document.getElementById('deposit-message');
             const cryptoTabs = document.querySelector('.crypto-tabs');
             const fileInput = document.getElementById('txn-screenshot');
             const fileChosenEl = document.getElementById('file-chosen');
-            const qrcodeContainer = document.getElementById('qrcode-container');
+            const qrCodeImg = document.getElementById('qr-code-img');
 
-            let qrcode = null;
-            if (qrcodeContainer) {
-                qrcode = new QRCode(qrcodeContainer, { width: 128, height: 128, colorDark: "#ffffff", colorLight: "rgba(26, 26, 26, 0.85)" });
-                function generateQRCode(address) {
-                    if (qrcode) qrcode.makeCode(address);
+            function generateQRCode(address) {
+                if (qrCodeImg && address && address !== '...') {
+                    const apiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=128x128&data=${encodeURIComponent(address)}`;
+                    qrCodeImg.src = apiUrl;
+                    qrCodeImg.style.display = 'block';
+                } else if (qrCodeImg) {
+                    qrCodeImg.style.display = 'none';
                 }
-                const initialAddress = document.getElementById('btc-address').textContent;
-                generateQRCode(initialAddress);
             }
+
+            // Generate initial QR code
+            const initialAddress = document.getElementById('btc-address').textContent;
+            generateQRCode(initialAddress);
 
             cryptoTabs.addEventListener('click', (e) => {
                 const tab = e.target.closest('.tab-btn');
@@ -210,10 +225,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     tab.classList.add('active');
                     const crypto = tab.dataset.crypto;
                     document.getElementById(`${crypto}-info`).classList.add('active');
-                    if (qrcodeContainer) {
-                        const newAddress = document.getElementById(`${crypto}-address`).textContent;
-                        generateQRCode(newAddress);
-                    }
+                    const newAddress = document.getElementById(`${crypto}-address`).textContent;
+                    generateQRCode(newAddress);
                 }
             });
 

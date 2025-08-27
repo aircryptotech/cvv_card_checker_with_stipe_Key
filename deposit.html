@@ -58,7 +58,9 @@
                     <div class="wallet-address"><code id="usdt-address">...</code></div>
                 </div>
                     </div>
-                    <div id="qrcode-container" style="margin: 20px auto; text-align: center;"></div>
+                    <div class="qrcode-container" style="margin: 20px auto; text-align: center;">
+                        <img id="qr-code-img" src="" alt="QR Code" style="background: white; padding: 5px;">
+                    </div>
                 </div>
                 <div class="deposit-form-container">
                     <form id="deposit-form">
@@ -85,7 +87,7 @@
         </section>
     </main>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="js/qrcode.min.js"></script>
     <script src="js/background.js"></script>
     <script src="js/main.js"></script>
 </body>
