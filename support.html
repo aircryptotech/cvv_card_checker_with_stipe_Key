@@ -15,35 +15,53 @@
     <header class="app-header">
         <div class="container">
             <h1 class="app-logo">ProChecker</h1>
-            <nav class="app-nav">
-                <a href="dashboard.html">Checker</a>
-                <a href="deposit.html">Deposit</a>
-                <a href="support.html" class="active">Support</a>
-            </nav>
-            <div class="header-right">
-                <div class="balance-display">Balance: <span id="user-balance">$0.00</span></div>
-                <button id="logout-btn" class="btn btn-secondary">Logout</button>
+            <div class="nav-and-user">
+                <nav class="app-nav">
+                    <a href="dashboard.html">Checker</a>
+                    <a href="deposit.html">Deposit</a>
+                    <a href="support.html" class="active">Support</a>
+                </nav>
+                <div class="header-right">
+                    <div class="balance-display">Balance: <span id="user-balance">$0.00</span></div>
+                    <button id="logout-btn" class="btn btn-secondary">Logout</button>
+                </div>
             </div>
         </div>
     </header>
 
     <main class="container page-container">
-        <section class="card support-card">
-            <h2>📨 Support Center</h2>
-            <p>Have a question? Open a ticket.</p>
-            <form id="support-ticket-form">
-                <div class="input-group">
-                    <label for="ticket-subject">Subject</label>
-                    <input type="text" id="ticket-subject" placeholder="e.g., Deposit Issue" required>
+        <div class="support-grid">
+            <section class="card existing-tickets">
+                <h2>Your Tickets</h2>
+                <div id="user-ticket-list">
+                    <!-- User's tickets will be listed here -->
                 </div>
-                <div class="input-group">
-                    <label for="ticket-message">Message</label>
-                    <textarea id="ticket-message" rows="4" placeholder="Describe your issue in detail..." required></textarea>
+                <button id="new-ticket-btn" class="btn">Create New Ticket</button>
+            </section>
+            <section class="card ticket-view">
+                <div id="new-ticket-view">
+                    <h2>Create New Ticket</h2>
+                    <form id="support-ticket-form">
+                        <div class="input-group">
+                            <label for="ticket-subject">Subject</label>
+                            <input type="text" id="ticket-subject" placeholder="e.g., Deposit Issue" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="ticket-message">Message</label>
+                            <textarea id="ticket-message" rows="4" placeholder="Describe your issue in detail..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Submit Ticket</button>
+                    </form>
+                    <p id="ticket-success-message" class="success-message"></p>
                 </div>
-                <button type="submit" class="btn">Submit Ticket</button>
-            </form>
-            <p id="ticket-success-message" class="success-message"></p>
-        </section>
+                <div id="conversation-view" class="hidden">
+                    <h2 id="convo-subject"></h2>
+                    <div id="convo-messages">
+                        <!-- Conversation messages will be rendered here -->
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
 
     <script src="js/background.js"></script>
