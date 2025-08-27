@@ -3,32 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Card Checker</title>
+    <title>Pro Checker - Live Card Validation Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <canvas id="constellation-canvas"></canvas>
-    <div class="container login-container">
-        <div class="login-box">
-            <h1>👤 Admin & User Login</h1>
-            <form id="login-form">
-                <div class="input-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <button type="submit" class="btn">Login 🚀</button>
-                <p id="error-message" class="error-message"></p>
-                <div class="form-link">
-                    <p>Don't have an account? <a href="register.html">Register here</a></p>
-                </div>
-            </form>
+    <div class="container hero-container">
+        <div class="hero-content">
+            <h1 class="hero-title">Pro Checker</h1>
+            <p class="hero-subtitle">Instant, Reliable, and Secure Card Validation.</p>
+            <div class="features-list">
+                <p><i class="fa-solid fa-check-circle"></i> Real-time Checking</p>
+                <p><i class="fa-solid fa-check-circle"></i> Batch Processing for Bulk Cards</p>
+                <p><i class="fa-solid fa-check-circle"></i> Secure Crypto Deposits</p>
+                <p><i class="fa-solid fa-check-circle"></i> 24/7 Support</p>
+            </div>
+            <div class="hero-buttons">
+                <a href="register.html" class="btn btn-primary">Get Started</a>
+                <a href="login.html" class="btn btn-secondary">Login</a>
+            </div>
         </div>
     </div>
     <script src="js/background.js"></script>
-    <script src="js/main.js"></script>
 </body>
 </html>

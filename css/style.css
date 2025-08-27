@@ -16,7 +16,7 @@
 }
 
 body {
-    font-family: 'VT323', monospace;
+    font-family: 'Roboto Mono', monospace;
     background-color: var(--background-color);
     color: var(--primary-color);
 }
@@ -57,6 +57,7 @@ body {
 }
 
 .login-box h1 {
+    font-family: 'VT323', monospace;
     margin-bottom: 30px;
     text-shadow: 0 0 5px var(--primary-color);
     animation: text-flicker 3s infinite;
@@ -131,9 +132,10 @@ body {
 }
 
 /* --- DASHBOARD & GENERAL STYLES --- */
-header {
-    background-color: var(--dark-color);
-    border-bottom: 2px solid var(--primary-color);
+.app-header {
+    background-color: rgba(26, 26, 26, 0.85);
+    border-bottom: 1px solid var(--primary-color);
+    backdrop-filter: blur(5px);
     padding: 10px 0;
     width: 100%;
     position: fixed;
@@ -142,7 +144,7 @@ header {
     z-index: 100;
 }
 
-header .container {
+.app-header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -150,20 +152,49 @@ header .container {
     margin: 0 auto;
 }
 
-header h1 {
-    font-size: 1.5rem;
-    text-shadow: 0 0 8px var(--secondary-color);
-    animation: text-flicker 3s infinite;
+.app-logo {
+    font-family: 'VT323', monospace;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    text-shadow: 0 0 5px var(--primary-color);
 }
 
-header .btn {
-    width: auto;
-    padding: 8px 15px;
-    font-size: 1rem;
+.app-nav {
+    display: flex;
+    gap: 20px;
 }
 
-main.container {
-    padding-top: 100px;
+.app-nav a {
+    color: var(--light-color);
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 5px 10px;
+    border-radius: 3px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.app-nav a:hover {
+    background-color: var(--primary-color);
+    color: var(--dark-color);
+}
+
+.app-nav a.active {
+    color: var(--primary-color);
+    box-shadow: 0 2px 0 var(--primary-color);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.balance-display {
+    font-size: 1.1rem;
+}
+
+.page-container {
+    padding-top: 80px;
     padding-bottom: 40px;
     max-width: 1200px;
     margin: 0 auto;
@@ -190,6 +221,8 @@ main.container {
 }
 
 .card h2 {
+    font-family: 'VT323', monospace;
+    font-size: 1.5rem;
     margin-bottom: 20px;
     border-bottom: 1px solid var(--secondary-color);
     padding-bottom: 10px;
@@ -352,13 +385,20 @@ main.container {
     width: 100%;
     padding: 10px;
     background-color: var(--background-color);
-    border: 1px solid var(--primary-color);
+    border: 1px dashed var(--primary-color);
     color: var(--primary-color);
     font-family: inherit;
     font-size: 1rem;
     border-radius: 3px;
     margin-bottom: 10px;
     resize: vertical;
+    transition: border-style 0.3s, box-shadow 0.3s;
+}
+
+.batch-checker-card textarea:focus {
+    outline: none;
+    border-style: solid;
+    box-shadow: 0 0 8px var(--primary-color);
 }
 
 .card-header {
@@ -572,4 +612,71 @@ main.container {
     color: var(--primary-color);
     display: block;
     margin-bottom: 5px;
+}
+
+/* --- HERO / LANDING PAGE --- */
+.hero-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 700px;
+    padding: 40px;
+    background-color: rgba(26, 26, 26, 0.85);
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    box-shadow: 0 0 20px var(--primary-color);
+}
+
+.hero-title {
+    font-family: 'VT323', monospace;
+    font-size: 4rem;
+    color: var(--primary-color);
+    text-shadow: 0 0 15px var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 30px;
+}
+
+.features-list {
+    margin-bottom: 40px;
+    text-align: left;
+    display: inline-block;
+}
+
+.features-list p {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.features-list .fa-check-circle {
+    color: var(--primary-color);
+    margin-right: 10px;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn.btn-secondary {
+    background-color: transparent;
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+    text-shadow: 0 0 3px var(--secondary-color);
+}
+
+.btn.btn-secondary:hover {
+    background-color: var(--secondary-color);
+    color: var(--dark-color);
+    box-shadow: 0 0 15px var(--secondary-color);
 }

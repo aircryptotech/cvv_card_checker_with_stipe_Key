@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const user = users.find(u => u.username === username && u.password === password);
 
             if (user) {
-                // In a real app, you'd set a session token. Here we just redirect.
+                sessionStorage.setItem('currentUser', username);
                 window.location.href = 'dashboard.html';
             } else {
                 errorMessage.textContent = 'Access Denied. Invalid Credentials.';
@@ -47,8 +47,17 @@ document.addEventListener('DOMContentLoaded', () => {
             users.push({ username, password });
             localStorage.setItem('users', JSON.stringify(users));
 
+            // Create initial state for the new user with 0 balance
+            const newUserState = {
+                balance: 0.00,
+                checksPerformed: 0,
+                liveCards: [],
+                deadCards: []
+            };
+            localStorage.setItem(`userState_${username}`, JSON.stringify(newUserState));
+
             // Redirect to login page with a success message
-            window.location.href = 'index.html?registered=true';
+            window.location.href = 'login.html?registered=true';
         });
     }
 
@@ -63,19 +72,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- USER DASHBOARD LOGIC (v2 with Premium Features) ---
-    const userDashboard = document.getElementById('checker-form');
-    if (userDashboard) {
-        // Mock state with localStorage persistence
-        let state = JSON.parse(localStorage.getItem('userState')) || {
-            balance: 10.00,
+    // --- USER DASHBOARD LOGIC (v3 - Multi-Page & Multi-User) ---
+    const userApp = document.querySelector('.app-header'); // Shared element across app pages
+    if (userApp) {
+        const currentUser = sessionStorage.getItem('currentUser');
+        if (!currentUser) {
+            window.location.href = 'login.html';
+            return; // Stop script execution if not logged in
+        }
+
+        const defaultState = {
+            balance: 0.00,
             checksPerformed: 0,
             liveCards: [],
             deadCards: []
         };
+        let state = JSON.parse(localStorage.getItem(`userState_${currentUser}`)) || defaultState;
 
         const saveState = () => {
-            localStorage.setItem('userState', JSON.stringify(state));
+            localStorage.setItem(`userState_${currentUser}`, JSON.stringify(state));
         };
 
         // DOM Elements
@@ -100,6 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const exportDeadBtn = document.getElementById('export-dead-btn');
         const supportTicketForm = document.getElementById('support-ticket-form');
         const ticketSuccessMessage = document.getElementById('ticket-success-message');
+        const qrcodeContainer = document.getElementById('qrcode-container');
 
         const renderLists = () => {
             liveCardsListEl.innerHTML = '';
@@ -197,6 +213,27 @@ document.addEventListener('DOMContentLoaded', () => {
             exportList(state.deadCards, 'dead_cards.txt');
         });
 
+        // --- QR CODE LOGIC ---
+        let qrcode = null;
+        if (qrcodeContainer) {
+            qrcode = new QRCode(qrcodeContainer, {
+                width: 128,
+                height: 128,
+                colorDark: "#ffffff",
+                colorLight: "rgba(26, 26, 26, 0.85)",
+            });
+
+            function generateQRCode(address) {
+                if (qrcode) {
+                    qrcode.makeCode(address);
+                }
+            }
+            // Generate initial QR code
+            const initialAddress = document.getElementById('btc-address').textContent;
+            generateQRCode(initialAddress);
+        }
+
+
         cryptoTabs.addEventListener('click', (e) => {
             if (e.target.classList.contains('tab-btn')) {
                 // Deactivate current active elements
@@ -204,9 +241,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.querySelector('.crypto-content.active').classList.remove('active');
 
                 // Activate new tab and content
-                e.target.classList.add('active');
-                const crypto = e.target.dataset.crypto;
+                const tab = e.target.closest('.tab-btn');
+                tab.classList.add('active');
+                const crypto = tab.dataset.crypto;
                 document.getElementById(`${crypto}-info`).classList.add('active');
+
+                // Update QR Code
+                if (qrcodeContainer) {
+                    const newAddress = document.getElementById(`${crypto}-address`).textContent;
+                    generateQRCode(newAddress);
+                }
             }
         });
 
