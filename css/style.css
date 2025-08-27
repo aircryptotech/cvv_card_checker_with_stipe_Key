@@ -1,0 +1,313 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+:root {
+    --primary-color: #00ff41;
+    --background-color: #0d0d0d;
+    --dark-color: #1a1a1a;
+    --light-color: #ffffff;
+    --error-color: #ff0041;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'VT323', monospace;
+    background-color: var(--background-color);
+    color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: linear-gradient(var(--primary-color) 1px, transparent 1px), linear-gradient(to right, var(--primary-color) 1px, var(--background-color) 1px);
+    background-size: 20px 20px;
+    animation: grid-move 2s linear infinite;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.login-box {
+    background-color: var(--dark-color);
+    padding: 40px;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    box-shadow: 0 0 15px var(--primary-color);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-box h1 {
+    margin-bottom: 30px;
+    text-shadow: 0 0 5px var(--primary-color);
+    animation: text-flicker 3s infinite;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--background-color);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    font-family: inherit;
+    font-size: 1rem;
+    border-radius: 3px;
+}
+
+.input-group input:focus {
+    outline: none;
+    box-shadow: 0 0 8px var(--primary-color);
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-family: inherit;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.btn:hover, .btn:focus {
+    background-color: var(--primary-color);
+    color: var(--dark-color);
+    box-shadow: 0 0 15px var(--primary-color);
+}
+
+.error-message {
+    color: var(--error-color);
+    margin-top: 15px;
+    height: 20px;
+    text-shadow: 0 0 5px var(--error-color);
+}
+
+/* --- DASHBOARD & GENERAL STYLES --- */
+header {
+    background-color: var(--dark-color);
+    border-bottom: 2px solid var(--primary-color);
+    padding: 10px 0;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    text-shadow: 0 0 5px var(--primary-color);
+    animation: text-flicker 3s infinite;
+}
+
+header .btn {
+    width: auto;
+    padding: 8px 15px;
+    font-size: 1rem;
+}
+
+main.container {
+    padding-top: 100px;
+    padding-bottom: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background-color: var(--dark-color);
+    padding: 20px;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+}
+
+.card h2 {
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--primary-color);
+    padding-bottom: 10px;
+}
+
+.input-group-row {
+    display: flex;
+    gap: 20px;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.result-box {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 3px;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.result-box.live {
+    background-color: rgba(0, 255, 65, 0.1);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.result-box.dead {
+    background-color: rgba(255, 0, 65, 0.1);
+    border: 1px solid var(--error-color);
+    color: var(--error-color);
+}
+
+.wallet-address {
+    background-color: var(--background-color);
+    padding: 10px;
+    border: 1px dashed var(--primary-color);
+    margin: 15px 0;
+    word-wrap: break-word;
+}
+
+.success-message {
+    color: var(--primary-color);
+    margin-top: 15px;
+    text-shadow: 0 0 5px var(--primary-color);
+}
+
+#transaction-list {
+    list-style-type: none;
+    height: 150px;
+    overflow-y: auto;
+    border: 1px solid var(--primary-color);
+    padding: 10px;
+}
+
+#transaction-list li {
+    margin-bottom: 5px;
+}
+
+#transaction-list li.spent {
+    color: var(--error-color);
+}
+
+/* --- ADMIN DASHBOARD --- */
+.deposit-requests-card {
+    grid-column: 1 / -1; /* Make this card span full width */
+}
+
+#deposit-requests-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+#deposit-requests-table th, #deposit-requests-table td {
+    padding: 12px;
+    border: 1px solid var(--primary-color);
+    text-align: left;
+}
+
+#deposit-requests-table th {
+    background-color: rgba(0, 255, 65, 0.1);
+}
+
+#deposit-requests-table .action-btn {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.action-btn.approve {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+.action-btn.approve:hover {
+    background-color: var(--primary-color);
+    color: var(--dark-color);
+}
+
+.action-btn.decline {
+    border-color: var(--error-color);
+    color: var(--error-color);
+}
+.action-btn.decline:hover {
+    background-color: var(--error-color);
+    color: var(--dark-color);
+}
+
+.api-key-card {
+    grid-column: 1 / -1; /* Make this card span full width */
+}
+
+.api-status {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px dashed var(--primary-color);
+    background-color: var(--background-color);
+}
+
+.api-status #current-key {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.api-status #check-key-btn {
+    margin-left: 15px;
+    padding: 5px 10px;
+}
+
+#key-status {
+    margin-top: 10px;
+    font-size: 1.1rem;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes text-flicker {
+    0% { opacity: 0.8; text-shadow: 0 0 10px var(--primary-color); }
+    50% { opacity: 1; text-shadow: 0 0 15px var(--primary-color); }
+    100% { opacity: 0.8; text-shadow: 0 0 10px var(--primary-color); }
+}
+
+@keyframes grid-move {
+    0% { background-position: 0 0; }
+    100% { background-position: 20px 20px; }
+}
+
+/* Animations are applied to the body and h1 selectors directly */

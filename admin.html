@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Card Checker</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🔑 Admin Dashboard</h1>
+            <button id="logout-btn" class="btn">Logout</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="dashboard-grid">
+            <section class="card deposit-requests-card">
+                <h2>💰 Pending Deposit Requests</h2>
+                <table id="deposit-requests-table">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Transaction ID</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Mock data will be populated by JS -->
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="card api-key-card">
+                <h2>⚙️ API Key Management (Stripe)</h2>
+                <form id="api-key-form">
+                    <div class="input-group">
+                        <label for="stripe-key">Stripe Secret Key</label>
+                        <input type="password" id="stripe-key" placeholder="sk_live_... or sk_test_...">
+                    </div>
+                    <button type="submit" class="btn">Save Key</button>
+                </form>
+                <div class="api-status">
+                    <p>Current Key:</p>
+                    <code id="current-key">sk_test_...1234</code>
+                    <button id="check-key-btn" class="btn">Check Status</button>
+                    <p id="key-status"></p>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script src="js/main.js"></script>
+</body>
+</html>
