@@ -98,6 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const deadCardsListEl = document.getElementById('dead-cards-list');
         const exportLiveBtn = document.getElementById('export-live-btn');
         const exportDeadBtn = document.getElementById('export-dead-btn');
+        const supportTicketForm = document.getElementById('support-ticket-form');
+        const ticketSuccessMessage = document.getElementById('ticket-success-message');
 
         const renderLists = () => {
             liveCardsListEl.innerHTML = '';
@@ -235,6 +237,27 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = 'index.html';
         });
 
+        supportTicketForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const subject = document.getElementById('ticket-subject').value;
+            const message = document.getElementById('ticket-message').value;
+
+            const tickets = JSON.parse(localStorage.getItem('supportTickets')) || [];
+            const newTicket = {
+                id: Date.now(), // simple unique id
+                user: 'currentUser', // In a real app, this would be the logged-in user's ID
+                subject,
+                message,
+                status: 'open'
+            };
+            tickets.push(newTicket);
+            localStorage.setItem('supportTickets', JSON.stringify(tickets));
+
+            ticketSuccessMessage.textContent = 'Support ticket submitted successfully!';
+            setTimeout(() => { ticketSuccessMessage.textContent = ''; }, 3000);
+            supportTicketForm.reset();
+        });
+
         // Initial UI render
         updateUI();
     }
@@ -248,10 +271,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const openModal = () => modal.style.display = 'block';
         const closeModal = () => modal.style.display = 'none';
         closeBtn.onclick = closeModal;
+
+        // --- TICKET MODAL LOGIC ---
+        const ticketModal = document.getElementById('ticket-view-modal');
+        const closeTicketBtn = ticketModal.querySelector('.ticket-close');
+        const openTicketModal = () => ticketModal.style.display = 'block';
+        const closeTicketModal = () => ticketModal.style.display = 'none';
+        closeTicketBtn.onclick = closeTicketModal;
+
         window.onclick = (event) => {
-            if (event.target == modal) {
-                closeModal();
-            }
+            if (event.target == modal) closeModal();
+            if (event.target == ticketModal) closeTicketModal();
         };
 
         // --- MOCK DATA ---
@@ -298,11 +328,41 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        // --- TICKET LIST LOGIC ---
+        const ticketListEl = document.getElementById('ticket-list');
+        const renderTickets = () => {
+            const tickets = JSON.parse(localStorage.getItem('supportTickets')) || [];
+            ticketListEl.innerHTML = '';
+            tickets.forEach(ticket => {
+                const li = document.createElement('li');
+                li.dataset.id = ticket.id;
+                li.innerHTML = `
+                    <strong>${ticket.subject}</strong>
+                    <span>From: ${ticket.user}</span>
+                `;
+                ticketListEl.appendChild(li);
+            });
+        };
+
+        ticketListEl.addEventListener('click', (e) => {
+            const ticketLi = e.target.closest('li');
+            if (ticketLi) {
+                const tickets = JSON.parse(localStorage.getItem('supportTickets')) || [];
+                const ticket = tickets.find(t => t.id == ticketLi.dataset.id);
+                if (ticket) {
+                    document.getElementById('ticket-user').textContent = ticket.user;
+                    document.getElementById('ticket-modal-subject').textContent = ticket.subject;
+                    document.getElementById('ticket-modal-message').textContent = ticket.message;
+                    openTicketModal();
+                }
+            }
+        });
+
         // --- API KEY MANAGEMENT ---
         const apiKeyForm = document.getElementById('api-key-form');
         const currentKeyEl = document.getElementById('current-key');
         const checkKeyBtn = document.getElementById('check-key-btn');
-        const keyStatusEl = document.getElementById('key-status');
+        const keyDetailsPanel = document.getElementById('key-details');
 
         apiKeyForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -312,17 +372,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentKeyEl.textContent = `${newKey.substring(0, 8)}...${newKey.slice(-4)}`;
             }
             keyInput.value = '';
+            keyDetailsPanel.classList.remove('active'); // Hide details on new key save
         });
 
         checkKeyBtn.addEventListener('click', () => {
             const isLive = Math.random() > 0.3; // 70% chance live
+
+            const statusEl = document.getElementById('key-status-val');
+            const typeEl = document.getElementById('key-type-val');
+            const createdEl = document.getElementById('key-created-val');
+            const permsEl = document.getElementById('key-perms-val');
+
             if (isLive) {
-                keyStatusEl.textContent = 'Key is LIVE ✅';
-                keyStatusEl.style.color = 'var(--primary-color)';
+                statusEl.textContent = 'LIVE ✅';
+                statusEl.style.color = 'var(--primary-color)';
+                typeEl.textContent = 'Test Key';
+                // Generate a random date within the last year
+                const fakeDate = new Date(Date.now() - Math.floor(Math.random() * 31536000000));
+                createdEl.textContent = fakeDate.toUTCString();
+                permsEl.textContent = 'Read, Write, Charges, Payouts';
             } else {
-                keyStatusEl.textContent = 'Key is DEAD ❌';
-                keyStatusEl.style.color = 'var(--error-color)';
+                statusEl.textContent = 'DEAD ❌';
+                statusEl.style.color = 'var(--error-color)';
+                typeEl.textContent = 'N/A';
+                createdEl.textContent = 'N/A';
+                permsEl.textContent = 'N/A';
             }
+            keyDetailsPanel.classList.add('active');
         });
 
         // --- WALLET MANAGEMENT ---
@@ -370,5 +446,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Initial render
         renderRequests();
         loadWalletAddresses();
+        renderTickets();
     }
 });

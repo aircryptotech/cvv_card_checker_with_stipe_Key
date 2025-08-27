@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <canvas id="constellation-canvas"></canvas>
     <header>
         <div class="container">
             <h1>💳 User Dashboard</h1>
@@ -16,7 +17,7 @@
     </header>
 
     <main class="container">
-        <div class="dashboard-grid">
+        <div class="dashboard-grid user-dashboard-grid">
             <section class="card stats-card">
                 <h2>📊 Stats</h2>
                 <div class="stat">
@@ -48,94 +49,98 @@
                     </div>
                     <button type="submit" class="btn">Check Card</button>
                 </form>
-                <div id="checker-result" class="result-box">
-                    <!-- Result will be shown here -->
-                </div>
+                <div id="checker-result" class="result-box"></div>
             </section>
 
             <section class="card deposit-card">
-            <h2>💰 Deposit Funds</h2>
-            <div class="crypto-tabs">
-                <button class="tab-btn active" data-crypto="btc"><i class="fa-brands fa-btc"></i> BTC</button>
-                <button class="tab-btn" data-crypto="eth"><i class="fa-brands fa-ethereum"></i> ETH</button>
-                <button class="tab-btn" data-crypto="ltc"><i class="fa-brands fa-litecoin-sign"></i> LTC</button>
-                <button class="tab-btn" data-crypto="usdt"><i class="fa-solid fa-dollar-sign"></i> USDT</button>
-            </div>
-            <div id="crypto-info">
-                <div id="btc-info" class="crypto-content active">
-                    <p>Send BTC to the address below:</p>
-                    <div class="wallet-address">
-                        <code id="btc-address">bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</code>
-                    </div>
+                <h2>💰 Deposit Funds</h2>
+                <div class="crypto-tabs">
+                    <button class="tab-btn active" data-crypto="btc"><i class="fa-brands fa-btc"></i> BTC</button>
+                    <button class="tab-btn" data-crypto="eth"><i class="fa-brands fa-ethereum"></i> ETH</button>
+                    <button class="tab-btn" data-crypto="ltc"><i class="fa-brands fa-litecoin-sign"></i> LTC</button>
+                    <button class="tab-btn" data-crypto="usdt"><i class="fa-solid fa-dollar-sign"></i> USDT</button>
                 </div>
-                <div id="eth-info" class="crypto-content">
-                    <p>Send ETH to the address below:</p>
-                    <div class="wallet-address">
-                        <code id="eth-address">0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B</code>
+                <div id="crypto-info">
+                    <div id="btc-info" class="crypto-content active">
+                        <p>Send BTC to:</p>
+                        <div class="wallet-address"><code id="btc-address">...</code></div>
                     </div>
-                </div>
-                <div id="ltc-info" class="crypto-content">
-                    <p>Send LTC to the address below:</p>
-                    <div class="wallet-address">
-                        <code id="ltc-address">ltc1q9z6jryel9q5zcs6r7smmw2q42wl4k8crh4s49a</code>
+                    <div id="eth-info" class="crypto-content">
+                         <p>Send ETH to:</p>
+                        <div class="wallet-address"><code id="eth-address">...</code></div>
                     </div>
-                </div>
-                <div id="usdt-info" class="crypto-content">
-                    <p>Send USDT (ERC20) to the address below:</p>
-                    <div class="wallet-address">
-                        <code id="usdt-address">0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B</code>
+                    <div id="ltc-info" class="crypto-content">
+                         <p>Send LTC to:</p>
+                        <div class="wallet-address"><code id="ltc-address">...</code></div>
                     </div>
-                </div>
+                    <div id="usdt-info" class="crypto-content">
+                         <p>Send USDT to:</p>
+                        <div class="wallet-address"><code id="usdt-address">...</code></div>
+                    </div>
                 </div>
                 <form id="deposit-form">
                     <div class="input-group">
-                    <label for="deposit-amount">Amount (USD)</label>
-                    <input type="number" id="deposit-amount" placeholder="e.g., 50.00" required>
-                </div>
-                <div class="input-group">
-                    <label for="txn-id">Transaction ID / Hash</label>
-                        <input type="text" id="txn-id" placeholder="Enter your transaction ID" required>
+                        <label for="deposit-amount">Amount (USD)</label>
+                        <input type="number" id="deposit-amount" placeholder="50.00" required>
                     </div>
-                <div class="input-group">
-                    <label for="txn-screenshot" class="upload-btn-wrapper">
-                        <span class="btn">Upload Screenshot 📸</span>
-                        <input type="file" id="txn-screenshot" required>
-                        <span id="file-chosen">No file chosen</span>
-                    </label>
-                </div>
+                    <div class="input-group">
+                        <label for="txn-id">Transaction ID / Hash</label>
+                        <input type="text" id="txn-id" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="txn-screenshot" class="upload-btn-wrapper">
+                            <span class="btn">Upload Screenshot 📸</span>
+                            <input type="file" id="txn-screenshot" required>
+                            <span id="file-chosen">No file chosen</span>
+                        </label>
+                    </div>
                     <button type="submit" class="btn">Request Deposit</button>
                 </form>
-            <p id="deposit-message" class="success-message"></p>
+                <p id="deposit-message" class="success-message"></p>
             </section>
 
-        <section class="card batch-checker-card">
-            <h2>🤖 Batch Checker</h2>
-            <p>Paste cards below (one per line, e.g., CCN|MM|YY|CVV)</p>
-            <textarea id="batch-input" rows="5" placeholder="5432109876543210|12|25|123\n4111222233334444|06|26|456"></textarea>
-            <button id="batch-check-btn" class="btn">Check All</button>
-        </section>
+            <section class="card support-card">
+                <h2>📨 Support Center</h2>
+                <p>Have a question? Open a ticket.</p>
+                <form id="support-ticket-form">
+                    <div class="input-group">
+                        <label for="ticket-subject">Subject</label>
+                        <input type="text" id="ticket-subject" placeholder="e.g., Deposit Issue" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="ticket-message">Message</label>
+                        <textarea id="ticket-message" rows="4" placeholder="Describe your issue in detail..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Submit Ticket</button>
+                </form>
+                <p id="ticket-success-message" class="success-message"></p>
+            </section>
 
-        <section class="card live-cards-card">
-            <div class="card-header">
-                <h2>Live Cards ✅</h2>
-                <button id="export-live-btn" class="btn export-btn">Export .txt</button>
-            </div>
-            <ul id="live-cards-list">
-                <!-- Live cards will be added here -->
-            </ul>
-        </section>
+            <section class="card batch-checker-card">
+                <h2>🤖 Batch Checker</h2>
+                <p>Paste cards below (one per line, e.g., CCN|MM|YY|CVV)</p>
+                <textarea id="batch-input" rows="5"></textarea>
+                <button id="batch-check-btn" class="btn">Check All</button>
+            </section>
 
-        <section class="card dead-cards-card">
-            <div class="card-header">
-                <h2>Dead Cards ❌</h2>
-                <button id="export-dead-btn" class="btn export-btn">Export .txt</button>
-            </div>
-            <ul id="dead-cards-list">
-                <!-- Dead cards will be added here -->
-                </ul>
+            <section class="card live-cards-card">
+                <div class="card-header">
+                    <h2>Live Cards ✅</h2>
+                    <button id="export-live-btn" class="btn export-btn">Export .txt</button>
+                </div>
+                <ul id="live-cards-list"></ul>
+            </section>
+
+            <section class="card dead-cards-card">
+                <div class="card-header">
+                    <h2>Dead Cards ❌</h2>
+                    <button id="export-dead-btn" class="btn export-btn">Export .txt</button>
+                </div>
+                <ul id="dead-cards-list"></ul>
             </section>
         </div>
     </main>
+    <script src="js/background.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <canvas id="constellation-canvas"></canvas>
     <header>
         <div class="container">
             <h1>🔑 Admin Dashboard</h1>
@@ -47,7 +48,13 @@
                     <p>Current Key:</p>
                     <code id="current-key">sk_test_...1234</code>
                     <button id="check-key-btn" class="btn">Check Status</button>
-                    <p id="key-status"></p>
+                    <div id="key-details" class="key-details-panel">
+                        <h4>Key Details:</h4>
+                        <p><strong>Status:</strong> <span id="key-status-val"></span></p>
+                        <p><strong>Type:</strong> <span id="key-type-val"></span></p>
+                        <p><strong>Created:</strong> <span id="key-created-val"></span></p>
+                        <p><strong>Permissions:</strong> <span id="key-perms-val"></span></p>
+                    </div>
                 </div>
             </section>
 
@@ -74,6 +81,13 @@
                     <p id="wallet-save-message" class="success-message"></p>
                 </form>
             </section>
+
+            <section class="card incoming-tickets-card">
+                <h2>📨 Incoming Support Tickets</h2>
+                <ul id="ticket-list">
+                    <!-- Mock tickets will be populated by JS -->
+                </ul>
+            </section>
         </div>
     </main>
 
@@ -85,6 +99,18 @@
         </div>
     </div>
 
+    <div id="ticket-view-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn ticket-close">&times;</span>
+            <h3>Ticket Details</h3>
+            <p><strong>From:</strong> <span id="ticket-user"></span></p>
+            <p><strong>Subject:</strong> <span id="ticket-modal-subject"></span></p>
+            <hr style="border-color: var(--secondary-color); margin: 10px 0;">
+            <p id="ticket-modal-message" style="white-space: pre-wrap;"></p>
+        </div>
+    </div>
+
+    <script src="js/background.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
