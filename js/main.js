@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- LOGIN PAGE LOGIC ---
+    // --- AUTHENTICATION LOGIC (v2) ---
     const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -8,16 +10,57 @@ document.addEventListener('DOMContentLoaded', () => {
             const password = document.getElementById('password').value;
             const errorMessage = document.getElementById('error-message');
 
-            if (username === 'admin' && password === 'admin') {
-                errorMessage.textContent = '';
+            // Admin check
+            if (username === 'admin' && password === 'anamaka') {
                 window.location.href = 'admin.html';
-            } else if (username === 'user' && password === 'user') {
-                errorMessage.textContent = '';
+                return;
+            }
+
+            // User check
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users.find(u => u.username === username && u.password === password);
+
+            if (user) {
+                // In a real app, you'd set a session token. Here we just redirect.
                 window.location.href = 'dashboard.html';
             } else {
                 errorMessage.textContent = 'Access Denied. Invalid Credentials.';
             }
         });
+    }
+
+    if (registerForm) {
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+
+            if (users.find(u => u.username === username)) {
+                errorMessage.textContent = 'Username already exists.';
+                return;
+            }
+
+            // Add new user
+            users.push({ username, password });
+            localStorage.setItem('users', JSON.stringify(users));
+
+            // Redirect to login page with a success message
+            window.location.href = 'index.html?registered=true';
+        });
+    }
+
+    // Check for registration success message on login page
+    if (window.location.search.includes('registered=true')) {
+        const loginBox = document.querySelector('.login-box');
+        if(loginBox){
+            const successMessage = document.createElement('p');
+            successMessage.textContent = 'Registration successful! Please log in.';
+            successMessage.style.color = 'var(--primary-color)';
+            loginBox.insertBefore(successMessage, loginForm);
+        }
     }
 
     // --- USER DASHBOARD LOGIC (v2 with Premium Features) ---

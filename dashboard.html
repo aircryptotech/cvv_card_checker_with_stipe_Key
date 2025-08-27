@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard - Card Checker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <canvas id="matrix-canvas"></canvas>
     <header>
         <div class="container">
             <h1>💳 User Dashboard</h1>
@@ -56,10 +56,10 @@
             <section class="card deposit-card">
             <h2>💰 Deposit Funds</h2>
             <div class="crypto-tabs">
-                <button class="tab-btn active" data-crypto="btc">BTC</button>
-                <button class="tab-btn" data-crypto="eth">ETH</button>
-                <button class="tab-btn" data-crypto="ltc">LTC</button>
-                <button class="tab-btn" data-crypto="usdt">USDT</button>
+                <button class="tab-btn active" data-crypto="btc"><i class="fa-brands fa-btc"></i> BTC</button>
+                <button class="tab-btn" data-crypto="eth"><i class="fa-brands fa-ethereum"></i> ETH</button>
+                <button class="tab-btn" data-crypto="ltc"><i class="fa-brands fa-litecoin-sign"></i> LTC</button>
+                <button class="tab-btn" data-crypto="usdt"><i class="fa-solid fa-dollar-sign"></i> USDT</button>
             </div>
             <div id="crypto-info">
                 <div id="btc-info" class="crypto-content active">
@@ -136,7 +136,6 @@
             </section>
         </div>
     </main>
-    <script src="js/background.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
