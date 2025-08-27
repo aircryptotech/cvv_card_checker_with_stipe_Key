@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <canvas id="matrix-canvas"></canvas>
     <header>
         <div class="container">
             <h1>💳 User Dashboard</h1>
@@ -53,19 +54,58 @@
             </section>
 
             <section class="card deposit-card">
-                <h2>💰 Deposit Funds (Crypto)</h2>
-                <p>Send BTC to the address below:</p>
-                <div class="wallet-address">
-                    <code>bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</code>
+            <h2>💰 Deposit Funds</h2>
+            <div class="crypto-tabs">
+                <button class="tab-btn active" data-crypto="btc">BTC</button>
+                <button class="tab-btn" data-crypto="eth">ETH</button>
+                <button class="tab-btn" data-crypto="ltc">LTC</button>
+                <button class="tab-btn" data-crypto="usdt">USDT</button>
+            </div>
+            <div id="crypto-info">
+                <div id="btc-info" class="crypto-content active">
+                    <p>Send BTC to the address below:</p>
+                    <div class="wallet-address">
+                        <code id="btc-address">bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</code>
+                    </div>
+                </div>
+                <div id="eth-info" class="crypto-content">
+                    <p>Send ETH to the address below:</p>
+                    <div class="wallet-address">
+                        <code id="eth-address">0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B</code>
+                    </div>
+                </div>
+                <div id="ltc-info" class="crypto-content">
+                    <p>Send LTC to the address below:</p>
+                    <div class="wallet-address">
+                        <code id="ltc-address">ltc1q9z6jryel9q5zcs6r7smmw2q42wl4k8crh4s49a</code>
+                    </div>
+                </div>
+                <div id="usdt-info" class="crypto-content">
+                    <p>Send USDT (ERC20) to the address below:</p>
+                    <div class="wallet-address">
+                        <code id="usdt-address">0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B</code>
+                    </div>
+                </div>
                 </div>
                 <form id="deposit-form">
                     <div class="input-group">
-                        <label for="txn-id">Transaction ID</label>
+                    <label for="deposit-amount">Amount (USD)</label>
+                    <input type="number" id="deposit-amount" placeholder="e.g., 50.00" required>
+                </div>
+                <div class="input-group">
+                    <label for="txn-id">Transaction ID / Hash</label>
                         <input type="text" id="txn-id" placeholder="Enter your transaction ID" required>
                     </div>
+                <div class="input-group">
+                    <label for="txn-screenshot" class="upload-btn-wrapper">
+                        <span class="btn">Upload Screenshot 📸</span>
+                        <input type="file" id="txn-screenshot" required>
+                        <span id="file-chosen">No file chosen</span>
+                    </label>
+                </div>
                     <button type="submit" class="btn">Request Deposit</button>
                 </form>
-                 <p id="deposit-message" class="success-message"></p>
+            <p id="deposit-message" class="success-message"></p>
             </section>
 
         <section class="card batch-checker-card">
@@ -96,6 +136,7 @@
             </section>
         </div>
     </main>
+    <script src="js/background.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

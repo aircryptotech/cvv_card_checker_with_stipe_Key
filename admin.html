@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <canvas id="matrix-canvas"></canvas>
     <header>
         <div class="container">
             <h1>🔑 Admin Dashboard</h1>
@@ -21,9 +22,10 @@
                 <table id="deposit-requests-table">
                     <thead>
                         <tr>
-                            <th>User</th>
+                            <th>Crypto</th>
+                            <th>Amount (USD)</th>
                             <th>Transaction ID</th>
-                            <th>Amount</th>
+                            <th>Screenshot</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -49,8 +51,42 @@
                     <p id="key-status"></p>
                 </div>
             </section>
+
+            <section class="card wallet-management-card">
+                <h2>🏦 Wallet Address Management</h2>
+                <form id="wallet-form">
+                    <div class="input-group">
+                        <label for="btc-addr">BTC Address</label>
+                        <input type="text" id="btc-addr" name="btc-addr" placeholder="Enter BTC address">
+                    </div>
+                    <div class="input-group">
+                        <label for="eth-addr">ETH Address</label>
+                        <input type="text" id="eth-addr" name="eth-addr" placeholder="Enter ETH address">
+                    </div>
+                    <div class="input-group">
+                        <label for="ltc-addr">LTC Address</label>
+                        <input type="text" id="ltc-addr" name="ltc-addr" placeholder="Enter LTC address">
+                    </div>
+                    <div class="input-group">
+                        <label for="usdt-addr">USDT (ERC20) Address</label>
+                        <input type="text" id="usdt-addr" name="usdt-addr" placeholder="Enter USDT address">
+                    </div>
+                    <button type="submit" class="btn">Save Addresses</button>
+                    <p id="wallet-save-message" class="success-message"></p>
+                </form>
+            </section>
         </div>
     </main>
+
+    <div id="screenshot-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <p>Transaction Screenshot:</p>
+            <img src="https://via.placeholder.com/600x400.png/0d0d0d/00ff41?text=Mock+Transaction" alt="Transaction Screenshot">
+        </div>
+    </div>
+
+    <script src="js/background.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

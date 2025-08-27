@@ -2,6 +2,7 @@
 
 :root {
     --primary-color: #00ff41;
+    --secondary-color: #00bcd4;
     --background-color: #0d0d0d;
     --dark-color: #1a1a1a;
     --light-color: #ffffff;
@@ -18,25 +19,34 @@ body {
     font-family: 'VT323', monospace;
     background-color: var(--background-color);
     color: var(--primary-color);
+}
+
+#matrix-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.container {
+    width: 100%;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.login-container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: linear-gradient(var(--primary-color) 1px, transparent 1px), linear-gradient(to right, var(--primary-color) 1px, var(--background-color) 1px);
-    background-size: 20px 20px;
-    animation: grid-move 2s linear infinite;
-}
-
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 20px;
 }
 
 .login-box {
-    background-color: var(--dark-color);
+    background-color: rgba(26, 26, 26, 0.85);
+    backdrop-filter: blur(3px);
     padding: 40px;
     border: 2px solid var(--primary-color);
     border-radius: 5px;
@@ -127,7 +137,7 @@ header .container {
 
 header h1 {
     font-size: 1.5rem;
-    text-shadow: 0 0 5px var(--primary-color);
+    text-shadow: 0 0 8px var(--secondary-color);
     animation: text-flicker 3s infinite;
 }
 
@@ -151,7 +161,8 @@ main.container {
 }
 
 .card {
-    background-color: var(--dark-color);
+    background-color: rgba(26, 26, 26, 0.85);
+    backdrop-filter: blur(3px);
     padding: 20px;
     border: 1px solid var(--primary-color);
     border-radius: 5px;
@@ -160,8 +171,9 @@ main.container {
 
 .card h2 {
     margin-bottom: 20px;
-    border-bottom: 1px solid var(--primary-color);
+    border-bottom: 1px solid var(--secondary-color);
     padding-bottom: 10px;
+    color: var(--secondary-color);
 }
 
 .input-group-row {
@@ -244,7 +256,7 @@ main.container {
 }
 
 #deposit-requests-table th {
-    background-color: rgba(0, 255, 65, 0.1);
+    background-color: rgba(0, 188, 212, 0.2);
 }
 
 #deposit-requests-table .action-btn {
@@ -354,4 +366,120 @@ main.container {
 #dead-cards-list li {
     color: var(--error-color);
     margin-bottom: 5px;
+}
+
+/* --- DEPOSIT SYSTEM V2 --- */
+.crypto-tabs {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px;
+    background: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tab-btn:not(:last-child) {
+    border-right-width: 0;
+}
+
+.tab-btn.active, .tab-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--dark-color);
+}
+
+.crypto-content {
+    display: none;
+}
+
+.crypto-content.active {
+    display: block;
+}
+
+.upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 100%;
+}
+
+.upload-btn-wrapper .btn {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+#file-chosen {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+/* --- ADMIN MODAL --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: var(--dark-color);
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid var(--secondary-color);
+    width: 80%;
+    max-width: 700px;
+    box-shadow: 0 0 20px var(--secondary-color);
+    animation: modal-appear 0.5s;
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover, .close-btn:focus {
+    color: var(--light-color);
+}
+
+.modal-content img {
+    width: 100%;
+    height: auto;
+    margin-top: 15px;
+}
+
+@keyframes modal-appear {
+    from {transform: scale(0.5); opacity: 0;}
+    to {transform: scale(1); opacity: 1;}
+}
+
+.action-btn.view-screenshot {
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+}
+.action-btn.view-screenshot:hover {
+    background-color: var(--secondary-color);
+    color: var(--dark-color);
 }
