@@ -311,3 +311,47 @@ main.container {
 }
 
 /* Animations are applied to the body and h1 selectors directly */
+
+/* --- PREMIUM FEATURE STYLES --- */
+.batch-checker-card textarea {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--background-color);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    font-family: inherit;
+    font-size: 1rem;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    resize: vertical;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.export-btn {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+}
+
+#live-cards-list, #dead-cards-list {
+    list-style-type: none;
+    height: 200px;
+    overflow-y: auto;
+    border: 1px solid var(--primary-color);
+    padding: 10px;
+    margin-top: 10px;
+}
+
+#live-cards-list li {
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+#dead-cards-list li {
+    color: var(--error-color);
+    margin-bottom: 5px;
+}

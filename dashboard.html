@@ -68,11 +68,30 @@
                  <p id="deposit-message" class="success-message"></p>
             </section>
 
-            <section class="card transactions-card">
-                <h2>📜 Transaction History</h2>
-                <ul id="transaction-list">
-                    <!-- Transactions will be added here -->
-                    <li>Initial Balance: +$10.00</li>
+        <section class="card batch-checker-card">
+            <h2>🤖 Batch Checker</h2>
+            <p>Paste cards below (one per line, e.g., CCN|MM|YY|CVV)</p>
+            <textarea id="batch-input" rows="5" placeholder="5432109876543210|12|25|123\n4111222233334444|06|26|456"></textarea>
+            <button id="batch-check-btn" class="btn">Check All</button>
+        </section>
+
+        <section class="card live-cards-card">
+            <div class="card-header">
+                <h2>Live Cards ✅</h2>
+                <button id="export-live-btn" class="btn export-btn">Export .txt</button>
+            </div>
+            <ul id="live-cards-list">
+                <!-- Live cards will be added here -->
+            </ul>
+        </section>
+
+        <section class="card dead-cards-card">
+            <div class="card-header">
+                <h2>Dead Cards ❌</h2>
+                <button id="export-dead-btn" class="btn export-btn">Export .txt</button>
+            </div>
+            <ul id="dead-cards-list">
+                <!-- Dead cards will be added here -->
                 </ul>
             </section>
         </div>
